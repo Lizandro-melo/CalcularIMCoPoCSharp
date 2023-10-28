@@ -11,12 +11,11 @@ namespace CalcularIMCoPoCSharp.Model
         private float IMCAtual;
         private float IMCDesejavel;
 
-        public Usuario(string nome, string peso, string altura, string IMCDesejavel)
+        public Usuario(string nome, float peso, float altura, float IMCDesejavel)
         {
             this.setNome(nome);
-            List<float> dados = this.converterOsDados(peso, altura, IMCDesejavel);
-            this.setPesoAndAltura(dados[0], dados[1]);
-            this.setIMCDesejavel(dados[2]);
+            this.setPesoAndAltura(peso, altura);
+            this.setIMCDesejavel(IMCDesejavel);
         }
 
         public void setIMCAtual(float IMCAtual)
@@ -33,15 +32,6 @@ namespace CalcularIMCoPoCSharp.Model
         {
             this.peso = peso;
             this.altura = altura;
-        }
-
-        private List<float> converterOsDados(string peso, string altura, string IMCDesejavel)
-        {
-            float pesoFLoat = float.Parse(peso);
-            float alturaFLoat = float.Parse(altura);
-            float imcDesejavelFLoat = float.Parse(IMCDesejavel);
-            List<float> list = new List<float> { pesoFLoat, alturaFLoat, imcDesejavelFLoat};
-            return list;
         }
 
         public void setNome(string nome)
@@ -89,11 +79,11 @@ namespace CalcularIMCoPoCSharp.Model
             Console.Write("Digite seu nome: ");
             string nome = Console.ReadLine();
 			Console.Write("Digite seu peso: ");
-			string peso = Console.ReadLine();
+			float peso = float.Parse(Console.ReadLine());
 			Console.Write("Digite sua Altura: ");
-			string altura = Console.ReadLine();
+			float altura = float.Parse(Console.ReadLine());
             Console.Write("Digite seu IMC desejavel: ");
-			string IMCDesejavel = Console.ReadLine();
+			float IMCDesejavel = float.Parse(Console.ReadLine());
             this.usuario = new Usuario(nome, peso, altura, IMCDesejavel);
             float IMC = (float) Math.Round(this.efetuarOperacaoIMC(), 2);
             this.usuario.setIMCAtual(IMC);
