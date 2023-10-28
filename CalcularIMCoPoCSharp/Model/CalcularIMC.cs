@@ -8,60 +8,45 @@ namespace CalcularIMCoPoCSharp.Model
         private string nome;
         private float peso;
         private float altura;
-        private float IMCAtual;
-        private float IMCDesejavel;
+        private float imcAtual;
+        private float imcDesejavel;
 
-        public Usuario(string nome, float peso, float altura, float IMCDesejavel)
+        public string Nome
         {
-            this.setNome(nome);
-            this.setPesoAndAltura(peso, altura);
-            this.setIMCDesejavel(IMCDesejavel);
+            get { return this.nome; }
+            set { this.nome = value; }
         }
 
-        public void setIMCAtual(float IMCAtual)
+        public float Peso
         {
-            this.IMCAtual = IMCAtual;
+            get { return this.peso; }
+            set { this.peso = value; }
         }
 
-        public void setIMCDesejavel(float IMCDesejavel)
+        public float Altura
         {
-            this.IMCDesejavel = IMCDesejavel;
+            get { return this.altura; }
+            set { this.altura = value; }
         }
 
-        public void setPesoAndAltura(float peso, float altura)
+        public float IMCAtual
         {
-            this.peso = peso;
-            this.altura = altura;
+            get { return this.imcAtual; }
+            set { this.imcAtual = value; }
         }
 
-        public void setNome(string nome)
+        public float IMCDesejavel
         {
-            this.nome = nome;
+            get { return this.imcDesejavel; }
+            set { this.imcDesejavel = value; }
         }
-
-        public float getPeso()
+        
+        public Usuario(string nome, float peso, float altura, float imcDesejavel)
         {
-            return this.peso;
-        }
-
-        public float getAltura()
-        {
-            return this.altura;
-        }
-
-        public string getNome()
-        {
-            return this.nome;
-        }
-
-        public float getIMCAtual()
-        {
-            return this.IMCAtual;
-        }
-
-        public float getIMCDesejavel()
-        {
-            return this.IMCDesejavel;
+            this.Nome = nome;
+            this.Peso = peso;
+            this.Altura = altura;
+            this.IMCDesejavel = imcDesejavel;
         }
     }
 
@@ -86,22 +71,22 @@ namespace CalcularIMCoPoCSharp.Model
 			float IMCDesejavel = float.Parse(Console.ReadLine());
             this.usuario = new Usuario(nome, peso, altura, IMCDesejavel);
             float IMC = (float) Math.Round(this.efetuarOperacaoIMC(), 2);
-            this.usuario.setIMCAtual(IMC);
+            this.usuario.IMCAtual = IMC;
             this.calcularKgNecessario();
-			Console.WriteLine($"Seu IMC é: {usuario.getIMCAtual()}");
-            if (this.usuario.getIMCAtual() < this.mediasIMC[0])
+			Console.WriteLine($"Seu IMC é: {usuario.IMCAtual}");
+            if (this.usuario.IMCAtual < this.mediasIMC[0])
             {
                 this.abaixoDoPeso();
             }
-            else if (this.usuario.getIMCAtual() < this.mediasIMC[1])
+            else if (this.usuario.IMCAtual < this.mediasIMC[1])
             {
                 this.pesoNormal();
             }
-            else if (this.usuario.getIMCAtual() < this.mediasIMC[2])
+            else if (this.usuario.IMCAtual < this.mediasIMC[2])
             {
                 this.excessoDePeso();
             }
-            else if (this.usuario.getIMCAtual() > this.mediasIMC[2] || this.usuario.getIMCAtual() < this.mediasIMC[3])
+            else if (this.usuario.IMCAtual > this.mediasIMC[2] || this.usuario.IMCAtual < this.mediasIMC[3])
             {
                 this.obesidade();
             }
@@ -114,16 +99,16 @@ namespace CalcularIMCoPoCSharp.Model
 
 		private float efetuarOperacaoIMC()
 		{
-            float peso = this.usuario.getPeso();
-            float altura = this.usuario.getAltura();
+            float peso = this.usuario.Peso;
+            float altura = this.usuario.Altura;
 			return peso / (altura * altura);
 		}
 
         private void calcularKgNecessario()
         {
-            float IMC = this.usuario.getIMCDesejavel();
-            float altura = this.usuario.getAltura();
-            float kgUsuario = this.usuario.getPeso();
+            float IMC = this.usuario.IMCDesejavel;
+            float altura = this.usuario.Altura;
+            float kgUsuario = this.usuario.Peso;
             float kgIdeial = IMC * altura * altura;
             if (kgIdeial > kgUsuario)
             {
